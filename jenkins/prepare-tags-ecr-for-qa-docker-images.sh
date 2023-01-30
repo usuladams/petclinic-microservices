@@ -1,3 +1,4 @@
+#!/bin/bash
 MVN_VERSION=sh(script:". ${WORKSPACE}/spring-petclinic-admin-server/target/maven-archiver/pom.properties && echo $version", returnStdout:true).trim()
 env.IMAGE_TAG_ADMIN_SERVER="${ECR_REGISTRY}/${APP_REPO_NAME}:admin-server-qa-v${MVN_VERSION}-b${BUILD_NUMBER}"
 MVN_VERSION=sh(script:". ${WORKSPACE}/spring-petclinic-api-gateway/target/maven-archiver/pom.properties && echo $version", returnStdout:true).trim()

@@ -19,8 +19,7 @@ pipeline {
             steps {
                 echo 'Preparing Tags for Docker Images'
               
-                sh ''' #!/bin/bash 
-                     . ./jenkins/prepare-tags-ecr-for-qa-docker-images.sh '''
+                sh ''' sh -vx ./jenkins/prepare-tags-ecr-for-qa-docker-images.sh '''
                 // script {
                 //     MVN_VERSION=sh(script:'. ${WORKSPACE}/spring-petclinic-admin-server/target/maven-archiver/pom.properties && echo $version', returnStdout:true).trim()
                 //     env.IMAGE_TAG_ADMIN_SERVER="${ECR_REGISTRY}/${APP_REPO_NAME}:admin-server-qa-v${MVN_VERSION}-b${BUILD_NUMBER}"
