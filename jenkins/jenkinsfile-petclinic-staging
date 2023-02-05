@@ -7,11 +7,11 @@ pipeline {
         AWS_ACCOUNT_ID=sh(script:'export PATH="$PATH:/usr/local/bin" && aws sts get-caller-identity --query Account --output text', returnStdout:true).trim()
         AWS_REGION="us-east-1"
         ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-        RANCHER_URL="https://rancher.clarusway.us"
+        RANCHER_URL="https://rancher.mydevopsjourney.link"
         // Get the project-id from Rancher UI (projects/namespaces --> petclinic-cluster-staging namespace --> Edit yaml --> copy projectId )
-        RANCHER_CONTEXT="petclinic-cluster:project-id" 
+        RANCHER_CONTEXT="c-nmkcn:p-jqt9p" 
        //First part of projectID
-        CLUSTERID="petclinic-cluster"
+        CLUSTERID="c-nmkcn"
         RANCHER_CREDS=credentials('rancher-petclinic-credentials')
     }
     stages {
@@ -74,7 +74,7 @@ pipeline {
                 sh "rm -f k8s/config"
                 sh "rancher cluster kf $CLUSTERID > k8s/config"
                 sh "chmod 400 k8s/config"
-                sh "helm repo add stable-petclinic s3://petclinic-helm-charts-<put-your-name>/stable/myapp/"
+                sh "helm repo add stable-petclinic s3://petclinic-helm-charts-paul/stable/myapp/"
                 sh "helm package k8s/petclinic_chart"
                 sh "helm s3 push --force petclinic_chart-${BUILD_NUMBER}.tgz stable-petclinic"
                 sh "helm repo update"
